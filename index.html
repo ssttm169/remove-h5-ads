@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<title>妈妈再也不要担心H5的弹出广告了。</title>
+	</head>
+		
+	<body>
+		<div id="xxx_id" style="position: absolute;top:50%;left:50%;width:100px;height:100px;">
+			<iframe id="abcd111" src="http://www.itomtan.com/"></iframe>
+		</div>
+		
+	<script>
+		var del_times = 0, deTimer = null;
+		function adGo() {
+			var iframe = document.getElementsByTagName('iframe')[0];
+
+			if(iframe){
+				console.log(iframe)
+				
+				//循环 iframe 父类，直到找到body和body的下一级，然后整个嵌入的代码删除。
+				var bodyNode = {tagName:''}, iframeParent, targetNode = iframe.parentNode;
+				while (bodyNode.tagName != 'BODY'){
+					bodyNode = targetNode;
+					if(bodyNode.tagName != 'BODY'){
+						iframeParent = targetNode;
+						targetNode = targetNode.parentNode;
+					}
+				}
+				if(iframeParent) //如果iframe有父类
+					bodyNode.removeChild(iframeParent);
+				else
+					bodyNode.removeChild(iframe);
+			}
+			del_times++;
+			if (del_times > 10) window.clearInterval(deTimer)
+		}
+		deTimer = self.setInterval(adGo, 2000);   //把这个2000, 调低一点，比如200
+
+
+
+		//demo 
+		setTimeout(() => {
+			var obj = document.createElement("iframe");
+			obj.frameborder = 0;
+			obj.src = "http://www.itomtan.com/";
+			obj.frameBorder = 0;//FF、IE隐藏边框有效
+			obj.width = "100px";
+			obj.height = "100px";
+			obj.scrolling = "no";
+			obj.style = "top: 50%;position:  fixed;"
+			document.body.appendChild(obj);
+		}, 2000);
+	</script>
+	</body>
+</html>
