@@ -77,14 +77,24 @@ HTML5页面被电信运营商进行DNS劫持植入广告，建议打电话给电
 <!-- 嵌入的广告代码 结束  -->
 </body>
 </html>
-
 ```
 
 
 
 所以我的代码是这样写的。
 
+css代码
+
+```css
+/* 抢先 隐藏 iframe */
+body iframe {display: none;}
 ```
+
+
+
+js代码
+
+```js
 		var del_times = 0, deTimer = null;
 		function adGo() {
 			var iframe = document.getElementsByTagName('iframe')[0];
@@ -106,12 +116,15 @@ HTML5页面被电信运营商进行DNS劫持植入广告，建议打电话给电
 			del_times++;
 			if (del_times > 10) window.clearInterval(deTimer)
 		}
+		
+		//抢先 删除 嵌入广告
+		(function(){adGo();}())
+		
 		deTimer = self.setInterval(adGo, 200);
 ```
 
-
-
 把代码加到```<body></body>```
 
-经过一星期运行，效果棒棒的，妈妈再也不要担心我H5的弹出广告了。
 
+
+经过一星期运行，效果棒棒的，妈妈再也不要担心我H5的弹出广告了。
