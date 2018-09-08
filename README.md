@@ -114,7 +114,8 @@ js代码
 					bodyNode.removeChild(iframe);
 			}
 			del_times++;
-			if (del_times > 10) window.clearInterval(deTimer)
+			//这里是执行50次, 每次200ms, 意思在10秒以内删除垃圾广告。
+			if (del_times > 50) window.clearInterval(deTimer)
 		}
 		
 		//抢先 删除 嵌入广告
